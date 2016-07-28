@@ -14,14 +14,15 @@ fi
 
 while :; do
 	_uuid=$(jq -r '.uuid' $CONFIG_PATH)
-	_api_key=$(jq -r '.apiKey' $CONFIG_PATH)
+	# Default to the user api key if the device api key doesn't exist (eg registration happened in an older version that didn't support key exchange)
+	_device_api_key=$(jq -r '.deviceApiKey // .apiKey' $CONFIG_PATH)
 
 	if [ "$_uuid" = "null" ] || [ "$_api_key" = "null" ]; then
 		echo "prepare-openvpn: UUID and/or APIKEY missing from config file, VPN cannot connect"
 		sleep 2
 	else
 		echo $_uuid > /var/volatile/vpnfile
-		echo $_api_key >> /var/volatile/vpnfile
+		echo $_device_api_key >> /var/volatile/vpnfile
 		break
 	fi
 done

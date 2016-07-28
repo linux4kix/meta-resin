@@ -66,9 +66,9 @@ if [ `jq ".deviceId | length" $CONFIG_PATH` -eq 0 ]; then
     exit 1
 fi
 
-read api_key device_id <<<$(jq -r '.apiKey,.deviceId' $CONFIG_PATH)
+read device_api_key device_id <<<$(jq -r '.deviceApiKey,.deviceId' $CONFIG_PATH)
 
-curl -s -X PATCH "$API_ENDPOINT/v1/device($device_id)?apikey=$api_key" \
+curl -s -X PATCH "$API_ENDPOINT/v1/device($device_id)?apikey=$device_api_key" \
      -o "/var/log/provisioning-progress-curl-$PERCENTAGE.log" \
      --data-urlencode "provisioning_progress=$PERCENTAGE" \
      --data-urlencode "provisioning_state=$STATE" \
