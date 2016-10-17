@@ -16,6 +16,8 @@ SRC_URI = " \
     file://etc-systemd-journald.conf.d.mount \
     file://home-root-.rnd.mount \
     file://resin-bind.target \
+    file://var-lib-systemd.mount \
+    file://mnt-conf-systemd.automount \
     "
 
 S = "${WORKDIR}"
@@ -35,6 +37,8 @@ SYSTEMD_SERVICE_${PN} = " \
     var-log-journal.mount \
     etc-systemd-journald.conf.d.mount \
     home-root-.rnd.mount \
+    var-lib-systemd.mount \
+    mnt-conf-systemd.automount \
     "
 
 FILES_${PN} += " \
@@ -72,6 +76,8 @@ do_install () {
             ${WORKDIR}/var-log-journal.mount \
             ${WORKDIR}/etc-systemd-journald.conf.d.mount \
             ${WORKDIR}/home-root-.rnd.mount \
+            ${WORKDIR}/var-lib-systemd.mount \
+            ${WORKDIR}/mnt-conf-systemd.automount \
             ${D}${systemd_unitdir}/system
 
         # Yocto gets confused if we use strange file names - so we rename it here
