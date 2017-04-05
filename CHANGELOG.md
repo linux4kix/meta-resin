@@ -1,6 +1,8 @@
 Change log
 -----------
 
+* Use supervisor tag as supervisor recipe PV [Andrei}
+
 # v2.0.0 - 2017-03-31
 
 # v2.0.0-rc6 - 2017-03-31
